@@ -3576,6 +3576,7 @@ void Master::_accept(
     const scheduler::Call::Accept& accept,
     const Future<list<Future<bool>>>& _authorizations)
 {
+  // Check if this framework is registered
   Framework* framework = getFramework(frameworkId);
 
   // TODO(jieyu): Consider using the 'drop' overload mentioned in

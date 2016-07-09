@@ -2142,10 +2142,15 @@ void Master::receive(
       teardown(framework);
       break;
 
+    // The framework scheduler accepts the offer and 
+    // replies to the master with the list of executors 
+    // that should be run on the slave, utilizing the 
+    // accepted resource offers.
     case scheduler::Call::ACCEPT:
       accept(framework, call.accept());
       break;
 
+    // The framework rejects the offer
     case scheduler::Call::DECLINE:
       decline(framework, call.decline());
       break;
@@ -3366,6 +3371,7 @@ Resources Master::addTask(
 }
 
 
+// Master::accept() -> Master::_accept()
 void Master::accept(
     Framework* framework,
     const scheduler::Call::Accept& accept)
@@ -3976,8 +3982,10 @@ void Master::_accept(
                       framework->info,
                       slave->info));
             }
-
-            send(slave->pid, message);
+            
+            // Mesos uses the libprocess library to implement the 
+            // communication that is located in 3rdparty/libprocess
+            send(slave->pid, message);  
           }
         }
         break;

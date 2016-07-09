@@ -3965,6 +3965,7 @@ void Master::_accept(
                       << " with resources " << task_.resources()
                       << " on agent " << *slave;
 
+            // defined in src/messages/messages.proto
             RunTaskMessage message;
             message.mutable_framework()->MergeFrom(framework->info);
 

@@ -4737,6 +4737,8 @@ void Master::_registerSlave(
         Clock::now(),
         checkpointedResources);
 
+    LOG(info) << "Slave register with IP " << slave->pid.address.ip;
+
     ++metrics->slave_registrations;
 
     addSlave(slave);
